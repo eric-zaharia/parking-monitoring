@@ -43,7 +43,7 @@ This repository contains the code and instructions for setting up a smart parkin
 \`\`\`markdown
 ### Install Python Libraries
 1. On your local machine, install the required Python libraries:
-   \`\`\`bash
+   \`\`\`
    pip install paho-mqtt elasticsearch
    \`\`\`
 
@@ -55,12 +55,12 @@ This repository contains the code and instructions for setting up a smart parkin
 ### Connect to Wi-Fi
 1. **Open the MicroPython script** on your Raspberry Pi Pico WH (e.g., `pico_sensor_data.py`).
 2. Set the Wi-Fi credentials:
-   \`\`\`python
+   \`\`\`
    SSID = 'Your-WiFi-SSID'
    PASSWORD = 'Your-WiFi-Password'
    \`\`\`
 3. Connect the Raspberry Pi Pico WH to your Wi-Fi network:
-   \`\`\`bash
+   \`\`\`
    import network
    wlan = network.WLAN(network.STA_IF)
    wlan.active(True)
@@ -84,25 +84,25 @@ This repository contains the code and instructions for setting up a smart parkin
 ### Configure and Run Data Processing Script
 1. **Open the Python script for processing and forwarding data (`es_proxy.py`)** on your local machine.
 2. **Update the Elasticsearch connection settings**:
-   \`\`\`python
+   \`\`\`
    es = Elasticsearch("http://localhost:9200", http_auth=("elastic", "your-password"))
    \`\`\`
 3. **Update the MQTT broker IP address**:
-   \`\`\`python
+   \`\`\`
    mqtt_client.connect("Your-MQTT-Broker-IP")
    \`\`\`
 4. **Run the script**:
-   \`\`\`bash
+   \`\`\`
    python es_proxy.py
    \`\`\`
 
 ### Set Up Elasticsearch and Kibana
 1. **Start Elasticsearch**:
-   \`\`\`bash
+   \`\`\`
    ./bin/elasticsearch
    \`\`\`
 2. **Start Kibana**:
-   \`\`\`bash
+   \`\`\`
    ./bin/kibana
    \`\`\`
 3. **Create an index pattern in Kibana** (e.g., `parking_data*`).
