@@ -40,7 +40,6 @@ This repository contains the code and instructions for setting up a smart parkin
 
 ### **2. Software Installation**
 
-\`\`\`markdown
 ### Install Python Libraries
 1. On your local machine, install the required Python libraries:
    \`\`\`
@@ -53,7 +52,7 @@ This repository contains the code and instructions for setting up a smart parkin
 3. Follow the flashing instructions provided by the MicroPython documentation to load the firmware onto your device.
 
 ### Connect to Wi-Fi
-1. **Open the MicroPython script** on your Raspberry Pi Pico WH (`main-project.py`).
+1. **Open the MicroPython script** on your Raspberry Pi Pico WH (`main-project.py`)**.
 3. Set the Wi-Fi credentials:
    \`\`\`
    SSID = 'Your-WiFi-SSID'
