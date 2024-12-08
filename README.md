@@ -53,13 +53,13 @@ This repository contains the code and instructions for setting up a smart parkin
 3. Follow the flashing instructions provided by the MicroPython documentation to load the firmware onto your device.
 
 ### Connect to Wi-Fi
-1. **Open the MicroPython script** on your Raspberry Pi Pico WH (e.g., `pico_sensor_data.py`).
-2. Set the Wi-Fi credentials:
+1. **Open the MicroPython script** on your Raspberry Pi Pico WH (`main-project.py`).
+3. Set the Wi-Fi credentials:
    \`\`\`
    SSID = 'Your-WiFi-SSID'
    PASSWORD = 'Your-WiFi-Password'
    \`\`\`
-3. Connect the Raspberry Pi Pico WH to your Wi-Fi network:
+4. Connect the Raspberry Pi Pico WH to your Wi-Fi network:
    \`\`\`
    import network
    wlan = network.WLAN(network.STA_IF)
@@ -73,11 +73,11 @@ This repository contains the code and instructions for setting up a smart parkin
 
 ### Configure MQTT
 1. **Update the MQTT broker IP address** in the MicroPython script:
-   \`\`\`python
+   \`\`\`
    mqtt_server = 'Your-MQTT-Broker-IP'
    \`\`\`
 2. Upload the script to the Raspberry Pi Pico WH and run it:
-   \`\`\`bash
+   \`\`\`
    python pico_sensor_data.py
    \`\`\`
 
