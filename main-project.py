@@ -1,18 +1,20 @@
 from hcsr04 import HCSR04
+from machine import Pin, PWM
 from time import sleep
 import simple as mqtt
 import network
 import time
 
-sensor_ne = HCSR04(trigger_pin=18, echo_pin=19, echo_timeout_us=10000)
-sensor_se = HCSR04(trigger_pin=20, echo_pin=21, echo_timeout_us=10000)
-sensor_nw = HCSR04(trigger_pin=10, echo_pin=11, echo_timeout_us=10000)
-sensor_sw = HCSR04(trigger_pin=12, echo_pin=13, echo_timeout_us=10000)
+sensor_e = HCSR04(trigger_pin=18, echo_pin=19, echo_timeout_us=10000)
+sensor_w = HCSR04(trigger_pin=13, echo_pin=12, echo_timeout_us=10000)
 
-SSID = 'Eric\'s iPhone'
-PASSWORD = 'parolaeric'
+servo = PWM(Pin(16))
+servo.freq(50)
 
-mqtt_server = '172.20.10.3'
+SSID = 'AndroidAP0c21'
+PASSWORD = 'ilrc2120'
+
+mqtt_server = '192.168.43.202'
 client_id = 'pico'
 topic = 'test/parking-data'
 
@@ -28,8 +30,17 @@ def connect_wifi():
     print("Conectat la Wi-Fi:", wlan.ifconfig())
 
 def on_message(topic, msg):
-    message = "Bariera inchisa" if msg.decode() == "1" else "Bariera deschisa"
+    if msg.decode() == "1":
+        set_servo_angle(0)
+        message = "Bariera inchisa"
+    else:
+        set_servo_angle(90)
+        message = "Bariera deschisa"
     print(message)
+
+def set_servo_angle(angle):
+    duty = int((angle / 180 * 4915) + 1638)
+    servo.duty_u16(duty)
 
 
 connect_wifi()
@@ -41,8 +52,10 @@ try:
     client.subscribe("test/barrier")
 
     while True:
-        distance = sensor_ne.distance_cm()
-        message = f"NE-{distance},SE-5,NW-5,SW-5"
+        distance_e = sensor_e.distance_cm()
+        distance_w = sensor_w.distance_cm()
+        # print("\nNE:", distance_e, "\nNW:", distance_w)
+        message = f"E-{abs(distance_e)},W-{abs(distance_w)}"
         client.publish(topic, message)
 
         client.check_msg()

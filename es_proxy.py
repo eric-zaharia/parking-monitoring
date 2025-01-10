@@ -1,10 +1,14 @@
 from paho.mqtt.client import Client
 from elasticsearch import Elasticsearch
 import datetime
+import pytz
 
-es = Elasticsearch("https://localhost:9200", 
-                   verify_certs=False,
-                   http_auth=("elastic", "J1EWyeues0mlR=ws374N"))
+bucharest_tz = pytz.timezone("Europe/Bucharest")
+
+es = Elasticsearch("https://localhost:9200",
+                   basic_auth=("elastic", "hoG9ZsOilolQQiGMxKX2"),
+                   verify_certs=True,
+                   ca_certs="certs/ca.crt")
 
 
 def on_message(client, userdata, msg):
@@ -18,7 +22,7 @@ def on_message(client, userdata, msg):
 
     data = {}
     data["sensors"] = occupied_slots.copy()
-    data["timestamp"] = datetime.datetime.now().isoformat()
+    data["timestamp"] = datetime.datetime.now(bucharest_tz).isoformat()
     es.index(index="parking_data", body=data)
 
     parking_full = all(data["sensors"].values())
