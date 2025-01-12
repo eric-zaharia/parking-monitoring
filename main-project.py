@@ -54,7 +54,6 @@ try:
     while True:
         distance_e = sensor_e.distance_cm()
         distance_w = sensor_w.distance_cm()
-        # print("\nNE:", distance_e, "\nNW:", distance_w)
         message = f"E-{abs(distance_e)},W-{abs(distance_w)}"
         client.publish(topic, message)
 
