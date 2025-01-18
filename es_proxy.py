@@ -17,6 +17,7 @@ def on_message(client, userdata, msg):
     global manual_mode, manual_command
 
     if msg.topic == "test/mode":
+        print(f"Mode change request received: {msg.payload.decode()}")
         manual_mode = (msg.payload.decode() == "manual")
         print(f"Mode changed to {'manual' if manual_mode else 'auto'}")
         return
